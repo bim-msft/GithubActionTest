@@ -16,10 +16,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Azure CLI script file
+    - name: Azure CLI command test
       uses: azure/CLI@v1
       with:
         azcliversion: 2.4.0
         inlineScript: |
           az keyvault show -n bim-kv5
-          az keyvault secret set -n githubactiontest --vault-name bim-kv5 --value 123456
