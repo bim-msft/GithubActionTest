@@ -1,0 +1,25 @@
+on: [push]
+
+name: AzureCLISample
+
+jobs:
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Azure CLI script file
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.4.0
+        inlineScript: |
+          az keyvault show -n bim-kv5
+          az keyvault secret set -n githubactiontest --vault-name bim-kv5 --value 123456
